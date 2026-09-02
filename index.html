@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css?v=7" />
 </head>
 <body>
   <main class="app-shell">
@@ -65,22 +65,48 @@
 
         <article class="profile-card card">
           <div class="preview-head light"><div><small>معاينة 2</small><h2>صفحة الـ NFC الخاصة بشركتك</h2></div></div>
-          <div class="phone">
-            <div class="phone-top">
-              <div class="profile-logo"><img id="profileLogo" alt="لوغو الشركة"><span id="profilePlaceholder">LOGO</span></div>
+          <div class="profile-preview">
+            <div class="profile-hero-preview">
+              <div class="profile-stars"></div>
+              <div class="profile-wave profile-wave-1"></div>
+              <div class="profile-wave profile-wave-2"></div>
+              <div class="mini-lang"><span>Türkçe</span><b>العربية</b></div>
+              <div class="profile-avatar-wrap">
+                <div class="profile-logo"><img id="profileLogo" alt="لوغو الشركة"><span id="profilePlaceholder">LOGO</span></div>
+              </div>
               <h3 id="companyPreview">اسم شركتك</h3>
-              <p>مرحباً بك في صفحتنا الذكية</p>
+              <div class="mini-subtitle">◆ &nbsp; Digital Profile &nbsp; ◆</div>
+              <p class="mini-bio">صفحتك الذكية الخاصة بشركتك</p>
+              <div class="mini-gold-line"></div>
             </div>
-            <div class="link-list">
-              <div class="link-item"><span>واتساب</span><b id="waPreview">WhatsApp</b></div>
-              <div class="link-item"><span>إنستغرام</span><b id="igPreview">Instagram</b></div>
-              <div class="link-item"><span>الموقع الإلكتروني</span><b id="webPreview">موقعك الإلكتروني</b></div>
+
+            <div class="profile-links-preview">
+              <div class="profile-link contact-preview">
+                <span class="profile-arrow">‹</span>
+                <span class="profile-link-text"><b>إضافة لجهات الاتصال</b><small>احفظ بيانات شركتك بسهولة</small></span>
+                <span class="profile-icon">👤</span>
+              </div>
+              <div class="profile-link whatsapp-preview">
+                <span class="profile-arrow">‹</span>
+                <span class="profile-link-text"><b>واتساب</b><small id="waPreview">WhatsApp</small></span>
+                <span class="profile-icon">◔</span>
+              </div>
+              <div class="profile-link instagram-preview">
+                <span class="profile-arrow">‹</span>
+                <span class="profile-link-text"><b>Instagram</b><small id="igPreview">Instagram</small></span>
+                <span class="profile-icon">◎</span>
+              </div>
+              <div class="profile-link website-preview">
+                <span class="profile-arrow">‹</span>
+                <span class="profile-link-text"><b>الموقع الإلكتروني</b><small id="webPreview">موقعك الإلكتروني</small></span>
+                <span class="profile-icon">🌐</span>
+              </div>
             </div>
           </div>
         </article>
       </div>
     </section>
   </main>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
