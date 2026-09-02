@@ -121,7 +121,9 @@ function renderAll(result){
   uploadThumb.src=result.cleanData;
   uploadEmpty.classList.add('hidden');uploadFilled.classList.remove('hidden');
   keychainEmpty.classList.add('hidden');keychainWrap.classList.remove('hidden');alternateDesignBtn.classList.remove('hidden');
-  profileLogo.src=result.badge?result.originalData:result.cleanData;profileLogo.style.display='block';profilePlaceholder.style.display='none';
+  profileLogo.src=originalData;
+  profileLogo.style.display='block';
+  profilePlaceholder.style.display='none';
   drawCurrentVariant();
 }
 
