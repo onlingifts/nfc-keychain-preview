@@ -51,12 +51,12 @@ function autoRemoveBlackOrWhite(c,x){
     let score;
     if(darkBackground){
       score=Math.max(r,g,b);
-      const start=34,end=105;
+      const start=28,end=92;
       if(score<=start)d[i+3]=0;
       else if(score<end)d[i+3]=Math.round(255*(score-start)/(end-start));
     }else{
       score=255-Math.min(r,g,b);
-      const start=26,end=92;
+      const start=24,end=84;
       if(score<=start)d[i+3]=0;
       else if(score<end)d[i+3]=Math.round(255*(score-start)/(end-start));
     }
@@ -117,31 +117,51 @@ function alphaMaskFromImage(img,w,h,x,y){
   const mx=m.getContext('2d',{willReadFrequently:true});
   mx.drawImage(img,x,y,w,h);
   const p=mx.getImageData(0,0,m.width,m.height),d=p.data;
-  for(let i=0;i<d.length;i+=4){const a=d[i+3];d[i]=255;d[i+1]=255;d[i+2]=255;d[i+3]=a>22?a:0}
+  for(let i=0;i<d.length;i+=4){const a=d[i+3];d[i]=255;d[i+1]=255;d[i+2]=255;d[i+3]=a>18?a:0}
   mx.putImageData(p,0,0);return m;
+}
+
+function coloredLayer(mask,fillStyle){
+  const layer=document.createElement('canvas');layer.width=canvas.width;layer.height=canvas.height;
+  const lx=layer.getContext('2d');
+  lx.drawImage(mask,0,0);
+  lx.globalCompositeOperation='source-in';
+  lx.fillStyle=fillStyle;
+  lx.fillRect(0,0,layer.width,layer.height);
+  lx.globalCompositeOperation='source-over';
+  return layer;
 }
 
 function drawKeychain(data){
   const img=new Image();
   img.onload=()=>{
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    const pad=20;
+    const pad=18;
     const s=Math.min((canvas.width-pad*2)/img.width,(canvas.height-pad*2)/img.height);
     const w=img.width*s,h=img.height*s,x=(canvas.width-w)/2,y=(canvas.height-h)/2;
     const mask=alphaMaskFromImage(img,w,h,x,y);
-    const radius=Math.max(8,Math.round(Math.min(w,h)*.045));
-    const body=document.createElement('canvas');body.width=canvas.width;body.height=canvas.height;
-    const bx=body.getContext('2d');
-    for(let dy=-radius;dy<=radius;dy+=2)for(let dx=-radius;dx<=radius;dx+=2){if(dx*dx+dy*dy<=radius*radius)bx.drawImage(mask,dx,dy)}
 
-    ctx.save();
-    ctx.shadowColor='rgba(0,0,0,.58)';ctx.shadowBlur=25;ctx.shadowOffsetY=18;
-    ctx.drawImage(body,0,0);ctx.globalCompositeOperation='source-in';ctx.fillStyle='#171820';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore();
+    const radius=Math.max(9,Math.round(Math.min(w,h)*.045));
+    const bodyMask=document.createElement('canvas');bodyMask.width=canvas.width;bodyMask.height=canvas.height;
+    const bx=bodyMask.getContext('2d');
+    for(let dy=-radius;dy<=radius;dy+=2){
+      for(let dx=-radius;dx<=radius;dx+=2){
+        if(dx*dx+dy*dy<=radius*radius)bx.drawImage(mask,dx,dy);
+      }
+    }
 
-    ctx.save();ctx.drawImage(mask,0,0);ctx.globalCompositeOperation='source-in';
-    const gold=ctx.createLinearGradient(0,y,0,y+h);gold.addColorStop(0,'#e2c576');gold.addColorStop(.52,'#c49d49');gold.addColorStop(1,'#98702a');ctx.fillStyle=gold;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore();
+    const body=coloredLayer(bodyMask,'#22242d');
+    ctx.save();ctx.shadowColor='rgba(0,0,0,.62)';ctx.shadowBlur=24;ctx.shadowOffsetY=18;ctx.drawImage(body,0,0);ctx.restore();
 
-    ctx.save();ctx.globalAlpha=.22;ctx.translate(5,7);ctx.drawImage(mask,0,0);ctx.globalCompositeOperation='source-in';ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore();
+    const goldGradient=document.createElement('canvas');goldGradient.width=canvas.width;goldGradient.height=canvas.height;
+    const gx=goldGradient.getContext('2d');
+    const gold=gx.createLinearGradient(0,y,0,y+h);gold.addColorStop(0,'#f0d990');gold.addColorStop(.45,'#d4ad57');gold.addColorStop(1,'#a77b2f');
+    gx.fillStyle=gold;gx.fillRect(0,0,goldGradient.width,goldGradient.height);
+    gx.globalCompositeOperation='destination-in';gx.drawImage(mask,0,0);gx.globalCompositeOperation='source-over';
+    ctx.drawImage(goldGradient,0,0);
+
+    const highlight=document.createElement('canvas');highlight.width=canvas.width;highlight.height=canvas.height;
+    const hx=highlight.getContext('2d');hx.drawImage(mask,-2,-3);hx.globalCompositeOperation='source-in';hx.fillStyle='rgba(255,244,196,.34)';hx.fillRect(0,0,highlight.width,highlight.height);hx.globalCompositeOperation='source-over';ctx.drawImage(highlight,0,0);
   };
   img.src=data;
 }
