@@ -1,5 +1,4 @@
 const logoInput=document.getElementById('logoInput');
-const removeBg=document.getElementById('removeBg');
 const uploadEmpty=document.getElementById('uploadEmpty');
 const uploadFilled=document.getElementById('uploadFilled');
 const uploadThumb=document.getElementById('uploadThumb');
@@ -20,35 +19,47 @@ function readFile(file){
   r.readAsDataURL(file);
 }
 
-function averageCornerColor(c,x){
-  const size=Math.max(4,Math.round(Math.min(c.width,c.height)*0.08));
-  const pts=[[0,0],[c.width-size,0],[0,c.height-size],[c.width-size,c.height-size]];
-  let rs=0,gs=0,bs=0,count=0;
-  for(const [sx,sy] of pts){
-    const p=x.getImageData(sx,sy,size,size).data;
-    for(let i=0;i<p.length;i+=4){
-      if(p[i+3]<20)continue;
-      rs+=p[i];gs+=p[i+1];bs+=p[i+2];count++;
+function hasRealTransparency(c,x){
+  const d=x.getImageData(0,0,c.width,c.height).data;
+  let transparent=0,total=0;
+  const step=Math.max(1,Math.floor(Math.sqrt((c.width*c.height)/50000)));
+  for(let y=0;y<c.height;y+=step){
+    for(let xx=0;xx<c.width;xx+=step){
+      const a=d[(y*c.width+xx)*4+3];total++;if(a<220)transparent++;
     }
   }
-  if(!count)return null;
-  return [rs/count,gs/count,bs/count];
+  return total&&transparent/total>.015;
 }
 
-function removeDetectedBackground(c,x){
-  const bg=averageCornerColor(c,x);
-  if(!bg)return;
-  const brightness=(bg[0]+bg[1]+bg[2])/3;
-  const spread=Math.max(...bg)-Math.min(...bg);
-  if(spread>55)return;
+function borderBrightness(c,x){
+  const d=x.getImageData(0,0,c.width,c.height).data;
+  const band=Math.max(2,Math.round(Math.min(c.width,c.height)*.035));
+  let sum=0,count=0;
+  function add(xx,y){const i=(y*c.width+xx)*4;if(d[i+3]<20)return;sum+=(d[i]+d[i+1]+d[i+2])/3;count++}
+  for(let y=0;y<c.height;y+=2){for(let xx=0;xx<band;xx+=2){add(xx,y);add(c.width-1-xx,y)}}
+  for(let xx=0;xx<c.width;xx+=2){for(let y=0;y<band;y+=2){add(xx,y);add(xx,c.height-1-y)}}
+  return count?sum/count:255;
+}
+
+function autoRemoveBlackOrWhite(c,x){
+  if(hasRealTransparency(c,x))return;
+  const bg=borderBrightness(c,x);
+  const darkBackground=bg<128;
   const p=x.getImageData(0,0,c.width,c.height),d=p.data;
-  const hard=brightness<90?48:42;
-  const soft=brightness<90?105:92;
   for(let i=0;i<d.length;i+=4){
-    const dr=d[i]-bg[0],dg=d[i+1]-bg[1],db=d[i+2]-bg[2];
-    const dist=Math.sqrt(dr*dr+dg*dg+db*db);
-    if(dist<=hard)d[i+3]=0;
-    else if(dist<soft)d[i+3]=Math.min(d[i+3],Math.round(255*(dist-hard)/(soft-hard)));
+    const r=d[i],g=d[i+1],b=d[i+2];
+    let score;
+    if(darkBackground){
+      score=Math.max(r,g,b);
+      const start=34,end=105;
+      if(score<=start)d[i+3]=0;
+      else if(score<end)d[i+3]=Math.round(255*(score-start)/(end-start));
+    }else{
+      score=255-Math.min(r,g,b);
+      const start=26,end=92;
+      if(score<=start)d[i+3]=0;
+      else if(score<end)d[i+3]=Math.round(255*(score-start)/(end-start));
+    }
   }
   x.putImageData(p,0,0);
 }
@@ -57,18 +68,13 @@ function cropToContent(source){
   const sx=source.getContext('2d',{willReadFrequently:true});
   const p=sx.getImageData(0,0,source.width,source.height),d=p.data;
   let minX=source.width,minY=source.height,maxX=-1,maxY=-1;
-  for(let y=0;y<source.height;y++){
-    for(let x=0;x<source.width;x++){
-      const a=d[(y*source.width+x)*4+3];
-      if(a>24){
-        if(x<minX)minX=x;if(x>maxX)maxX=x;
-        if(y<minY)minY=y;if(y>maxY)maxY=y;
-      }
-    }
+  for(let y=0;y<source.height;y++)for(let x=0;x<source.width;x++){
+    const a=d[(y*source.width+x)*4+3];
+    if(a>35){if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y}
   }
   if(maxX<0||maxY<0)return source;
   const rawW=maxX-minX+1,rawH=maxY-minY+1;
-  const margin=Math.max(8,Math.round(Math.max(rawW,rawH)*0.06));
+  const margin=Math.max(6,Math.round(Math.max(rawW,rawH)*.045));
   minX=Math.max(0,minX-margin);minY=Math.max(0,minY-margin);
   maxX=Math.min(source.width-1,maxX+margin);maxY=Math.min(source.height-1,maxY+margin);
   const out=document.createElement('canvas');
@@ -87,7 +93,7 @@ function processLogo(){
     c.height=Math.max(1,Math.round(img.height*scale));
     const x=c.getContext('2d',{willReadFrequently:true});
     x.drawImage(img,0,0,c.width,c.height);
-    if(removeBg.checked)removeDetectedBackground(c,x);
+    autoRemoveBlackOrWhite(c,x);
     const cropped=cropToContent(c);
     renderAll(cropped.toDataURL('image/png'));
   };
@@ -106,41 +112,41 @@ function renderAll(data){
   drawKeychain(data);
 }
 
+function alphaMaskFromImage(img,w,h,x,y){
+  const m=document.createElement('canvas');m.width=canvas.width;m.height=canvas.height;
+  const mx=m.getContext('2d',{willReadFrequently:true});
+  mx.drawImage(img,x,y,w,h);
+  const p=mx.getImageData(0,0,m.width,m.height),d=p.data;
+  for(let i=0;i<d.length;i+=4){const a=d[i+3];d[i]=255;d[i+1]=255;d[i+2]=255;d[i+3]=a>22?a:0}
+  mx.putImageData(p,0,0);return m;
+}
+
 function drawKeychain(data){
   const img=new Image();
   img.onload=()=>{
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    const pad=34;
+    const pad=20;
     const s=Math.min((canvas.width-pad*2)/img.width,(canvas.height-pad*2)/img.height);
     const w=img.width*s,h=img.height*s,x=(canvas.width-w)/2,y=(canvas.height-h)/2;
-    const mask=document.createElement('canvas');mask.width=canvas.width;mask.height=canvas.height;
-    const mx=mask.getContext('2d');mx.drawImage(img,x,y,w,h);
-    const radius=Math.max(7,Math.round(Math.min(w,h)*0.035));
+    const mask=alphaMaskFromImage(img,w,h,x,y);
+    const radius=Math.max(8,Math.round(Math.min(w,h)*.045));
     const body=document.createElement('canvas');body.width=canvas.width;body.height=canvas.height;
     const bx=body.getContext('2d');
-    for(let dy=-radius;dy<=radius;dy+=3){
-      for(let dx=-radius;dx<=radius;dx+=3){
-        if(dx*dx+dy*dy<=radius*radius)bx.drawImage(mask,dx,dy);
-      }
-    }
+    for(let dy=-radius;dy<=radius;dy+=2)for(let dx=-radius;dx<=radius;dx+=2){if(dx*dx+dy*dy<=radius*radius)bx.drawImage(mask,dx,dy)}
+
     ctx.save();
-    ctx.shadowColor='rgba(0,0,0,.55)';ctx.shadowBlur=24;ctx.shadowOffsetY=18;
-    ctx.drawImage(body,0,0);
-    ctx.globalCompositeOperation='source-in';ctx.fillStyle='#171820';ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.restore();
-    ctx.save();
-    ctx.drawImage(mask,0,0);
-    ctx.globalCompositeOperation='source-in';
-    const gold=ctx.createLinearGradient(0,y,0,y+h);gold.addColorStop(0,'#e2c576');gold.addColorStop(.5,'#c49d49');gold.addColorStop(1,'#9a742d');
-    ctx.fillStyle=gold;ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.restore();
-    ctx.save();ctx.globalAlpha=.18;ctx.translate(5,7);ctx.drawImage(mask,0,0);ctx.globalCompositeOperation='source-in';ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore();
+    ctx.shadowColor='rgba(0,0,0,.58)';ctx.shadowBlur=25;ctx.shadowOffsetY=18;
+    ctx.drawImage(body,0,0);ctx.globalCompositeOperation='source-in';ctx.fillStyle='#171820';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore();
+
+    ctx.save();ctx.drawImage(mask,0,0);ctx.globalCompositeOperation='source-in';
+    const gold=ctx.createLinearGradient(0,y,0,y+h);gold.addColorStop(0,'#e2c576');gold.addColorStop(.52,'#c49d49');gold.addColorStop(1,'#98702a');ctx.fillStyle=gold;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore();
+
+    ctx.save();ctx.globalAlpha=.22;ctx.translate(5,7);ctx.drawImage(mask,0,0);ctx.globalCompositeOperation='source-in';ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore();
   };
   img.src=data;
 }
 
 logoInput.addEventListener('change',e=>readFile(e.target.files[0]));
-removeBg.addEventListener('change',processLogo);
 const dz=document.getElementById('dropZone');
 ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.style.borderColor='#7159df'}));
 ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.style.borderColor=''}));
@@ -148,9 +154,4 @@ dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)readFile(f)}
 const bindings=[['company','companyPreview'],['whatsapp','waPreview'],['instagram','igPreview'],['website','webPreview']];
 bindings.forEach(([a,b])=>{const el=document.getElementById(a),out=document.getElementById(b);el.addEventListener('input',()=>out.textContent=el.value.trim()||el.placeholder)});
 const orderBtn=document.getElementById('orderBtn');
-orderBtn.addEventListener('click',e=>{
-  e.preventDefault();
-  const company=document.getElementById('company').value.trim()||'بدون اسم';
-  const msg=`مرحبا، جربت معاينة الميدالية والموقع لشركة ${company} وأريد الاستفسار عن الطلب.`;
-  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,'_blank');
-});
+orderBtn.addEventListener('click',e=>{e.preventDefault();const company=document.getElementById('company').value.trim()||'بدون اسم';const msg=`مرحبا، جربت معاينة الميدالية والموقع لشركة ${company} وأريد الاستفسار عن الطلب.`;window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,'_blank')});
