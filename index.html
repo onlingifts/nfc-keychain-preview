@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#17141f" />
+  <title>جرّب ميداليتك الذكية | Online Gifts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div class="brand">ONLINE GIFTS</div>
+      <span class="pill">تجربة مجانية قبل الطلب</span>
+      <h1>ارفع لوغوك وشوف كيف ممكن تطلع ميداليتك وموقعك</h1>
+      <p>المعاينة تقريبية فقط، والنسخة النهائية يتم تحسينها يدوياً بما يناسب لوغوك والطباعة ثلاثية الأبعاد.</p>
+    </header>
+
+    <section class="workspace">
+      <div class="controls card">
+        <div class="step-title"><span>1</span><div><h2>ارفع لوغو شركتك</h2><p>PNG / JPG / WEBP — يفضّل لوغو واضح</p></div></div>
+        <label class="uploader" id="dropZone">
+          <input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+          <div id="uploadEmpty">
+            <div class="upload-icon">＋</div>
+            <strong>اضغط وارفع اللوغو</strong>
+            <small>أو اسحب الصورة إلى هنا</small>
+          </div>
+          <div id="uploadFilled" class="hidden">
+            <img id="uploadThumb" alt="معاينة اللوغو">
+            <strong id="fileName"></strong>
+            <small>اضغط لتغيير الصورة</small>
+          </div>
+        </label>
+
+        <label class="toggle-row">
+          <span>إزالة الخلفية البيضاء تلقائياً</span>
+          <input id="removeBg" type="checkbox" checked>
+        </label>
+
+        <div class="divider"></div>
+        <div class="step-title"><span>2</span><div><h2>معلومات الصفحة التجريبية</h2><p>تتغيّر المعاينة مباشرة أثناء الكتابة</p></div></div>
+        <div class="field-grid">
+          <label>اسم الشركة<input id="company" value="اسم شركتك" maxlength="40"></label>
+          <label>واتساب<input id="whatsapp" value="WhatsApp" maxlength="40"></label>
+          <label>إنستغرام<input id="instagram" value="Instagram" maxlength="40"></label>
+          <label>الموقع الإلكتروني<input id="website" value="موقعك الإلكتروني" maxlength="60"></label>
+        </div>
+      </div>
+
+      <div class="previews">
+        <article class="keychain-card card dark">
+          <div class="preview-head"><div><small>معاينة 1</small><h2>شكل الميدالية التقريبي</h2></div><b>NFC</b></div>
+          <div class="keychain-stage">
+            <div class="shadow"></div>
+            <div id="keychainEmpty" class="empty-preview">ارفع اللوغو لتظهر الميدالية هنا</div>
+            <div id="keychainWrap" class="keychain-wrap hidden">
+              <div class="ring"></div><div class="neck"></div>
+              <canvas id="keychainCanvas" width="720" height="520"></canvas>
+            </div>
+          </div>
+          <p class="note">هذه معاينة تقريبية لميداليتك ✨ قد تختلف بعض التفاصيل البسيطة عند التنفيذ، وسنقوم بتحسين التصميم بما يناسب لوغوك للحصول على أفضل نتيجة ممكنة.</p>
+        </article>
+
+        <article class="profile-card card">
+          <div class="preview-head light"><div><small>معاينة 2</small><h2>صفحة الـ NFC الخاصة بشركتك</h2></div></div>
+          <div class="phone">
+            <div class="phone-top">
+              <div class="profile-logo"><img id="profileLogo" alt="لوغو الشركة"><span id="profilePlaceholder">LOGO</span></div>
+              <h3 id="companyPreview">اسم شركتك</h3>
+              <p>مرحباً بك في صفحتنا الذكية</p>
+            </div>
+            <div class="link-list">
+              <div class="link-item"><span>واتساب</span><b id="waPreview">WhatsApp</b></div>
+              <div class="link-item"><span>إنستغرام</span><b id="igPreview">Instagram</b></div>
+              <div class="link-item"><span>الموقع الإلكتروني</span><b id="webPreview">موقعك الإلكتروني</b></div>
+            </div>
+          </div>
+          <a id="orderBtn" class="order-btn" href="#">أعجبتني الفكرة — أريد الطلب</a>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
