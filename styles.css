@@ -75,7 +75,7 @@ button{cursor:pointer}
 .contact-btn{display:flex;align-items:center;gap:11px;text-decoration:none;padding:12px;border-radius:18px;color:#fff;box-shadow:0 10px 24px rgba(24,64,78,.12)}
 .contact-btn>span:nth-child(2){display:flex;flex-direction:column}.contact-btn small{font-size:9px;opacity:.86}.contact-btn b{font-size:14px}
 .contact-icon{width:42px;height:42px;border-radius:14px;display:grid!important;place-items:center;background:#ffffff24;font-size:19px;flex:0 0 42px}
-.primary-contact{background:linear-gradient(100deg,#173e58,#245e70)}.secondary-contact{background:linear-gradient(100deg,#4f7a75,#66a596)}
+.primary-contact{background:linear-gradient(100deg,#173e58,#245e70)}.secondary-contact{background:linear-gradient(100deg,#4f7a75,#66a596)}.third-contact{background:linear-gradient(100deg,#6b5b91,#8d78bb)}.public-contact-group{display:grid;gap:5px}.wa-link{justify-self:end;text-decoration:none;color:#247869;font-size:10px;font-weight:800;padding:2px 8px}
 .info-panel{border-radius:19px;background:#fff7f3;border:1px solid #f5dfd5;padding:13px;margin-top:10px}
 .info-panel>div{display:flex;gap:7px;align-items:center;color:#874f3d}.info-panel strong{font-size:12px}.info-panel p{margin:7px 0 0;color:#6d5c56;font-size:11px;line-height:1.8;white-space:pre-wrap}
 .area-row{display:flex;align-items:center;justify-content:center;gap:6px;margin:12px 0 0;color:#667782;font-size:11px}
