@@ -2,111 +2,213 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#17141f" />
-  <title>جرّب ميداليتك الذكية | Online Gifts</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#17324d" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <title>بطاقة طوارئ الطفل الذكية</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7" />
+  <link rel="stylesheet" href="styles.css?v=1" />
 </head>
 <body>
-  <main class="app-shell">
+  <main id="builderView" class="app-shell">
     <header class="hero">
-      <div class="brand">ONLINE GIFTS</div>
-      <span class="pill">تجربة مجانية قبل الطلب</span>
-      <h1>ارفع لوغوك وشوف كيف ممكن تطلع ميداليتك وموقعك</h1>
-      <p>ارفع الصورة فقط، ونحن نجهّز المعاينة تلقائياً. التصميم النهائي يتم تحسينه يدوياً بما يناسب لوغوك والطباعة ثلاثية الأبعاد.</p>
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-content">
+        <div class="brand-row">
+          <div class="brand-mark">NFC</div>
+          <div>
+            <strong>بطاقة طوارئ الطفل الذكية</strong>
+            <span>أنشئ رابط معلومات الطفل خلال دقيقة</span>
+          </div>
+        </div>
+        <h1>معلومات الطفل والأهل في رابط واحد جاهز للميدالية</h1>
+        <p>اكتب المعلومات، شاهد المعاينة، ثم اضغط «إنشاء الرابط». بعد نسخ الرابط يمكنك برمجته مباشرة على شريحة NFC.</p>
+        <div class="trust-row">
+          <span>بدون حساب</span>
+          <span>بدون رابط تعديل</span>
+          <span>الرابط للعرض فقط</span>
+        </div>
+      </div>
     </header>
 
     <section class="workspace">
-      <div class="controls card">
-        <div class="step-title"><span>1</span><div><h2>ارفع لوغو شركتك</h2><p>PNG / JPG / WEBP — أي صورة متوفرة عندك</p></div></div>
-        <label class="uploader" id="dropZone">
-          <input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
-          <div id="uploadEmpty">
-            <div class="upload-icon">＋</div>
-            <strong>اضغط وارفع اللوغو</strong>
-            <small>أو اسحب الصورة إلى هنا</small>
+      <form id="cardForm" class="editor card" autocomplete="off">
+        <div class="section-head">
+          <span class="step-badge">1</span>
+          <div>
+            <h2>معلومات الطفل</h2>
+            <p>ضع فقط المعلومات التي تريد أن تظهر عند لمس الميدالية.</p>
           </div>
-          <div id="uploadFilled" class="hidden">
-            <img id="uploadThumb" alt="معاينة اللوغو">
-            <strong id="fileName"></strong>
-            <small>اضغط لتغيير الصورة</small>
+        </div>
+
+        <label class="photo-upload">
+          <input id="photoInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+          <div id="photoThumb" class="photo-thumb"><span>＋</span></div>
+          <div class="photo-copy">
+            <strong>صورة الطفل <small>اختياري</small></strong>
+            <span>اضغط لاختيار صورة واضحة</span>
           </div>
         </label>
 
-        <div class="toggle-row"><span>تنظيف الصورة واختيار شكل الميدالية يتم تلقائياً</span><b>✓</b></div>
+        <div class="field-grid two">
+          <label class="field">
+            <span>اسم الطفل *</span>
+            <input id="childName" maxlength="60" required placeholder="مثال: محمد أحمد">
+          </label>
+          <label class="field">
+            <span>تاريخ الميلاد <small>اختياري</small></span>
+            <input id="birthDate" type="date">
+          </label>
+          <label class="field">
+            <span>فصيلة الدم <small>اختياري</small></span>
+            <select id="bloodType">
+              <option value="">غير محدد</option>
+              <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+              <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>اللغة التي يفهمها الطفل <small>اختياري</small></span>
+            <input id="childLanguage" maxlength="50" placeholder="العربية، التركية...">
+          </label>
+        </div>
+
+        <label class="field">
+          <span>الحساسية أو الأدوية المهمة <small>اختياري</small></span>
+          <textarea id="allergies" maxlength="240" rows="3" placeholder="مثال: حساسية من البنسلين"></textarea>
+        </label>
+        <label class="field">
+          <span>ملاحظة طبية أو مهمة <small>اختياري</small></span>
+          <textarea id="medicalNote" maxlength="300" rows="3" placeholder="أي معلومة مهمة لمن يجد الطفل"></textarea>
+        </label>
+        <label class="field">
+          <span>المدينة / المنطقة <small>اختياري</small></span>
+          <input id="area" maxlength="80" placeholder="مثال: إسطنبول - إسنيورت">
+          <small class="privacy-hint">يفضل عدم كتابة عنوان المنزل الكامل.</small>
+        </label>
 
         <div class="divider"></div>
-        <div class="step-title"><span>2</span><div><h2>معلومات الصفحة التجريبية</h2><p>اختياري — تتغيّر المعاينة مباشرة أثناء الكتابة</p></div></div>
-        <div class="field-grid">
-          <label>اسم الشركة<input id="company" value="اسم شركتك" maxlength="40"></label>
-          <label>واتساب<input id="whatsapp" value="WhatsApp" maxlength="40"></label>
-          <label>إنستغرام<input id="instagram" value="Instagram" maxlength="40"></label>
-          <label>الموقع الإلكتروني<input id="website" value="موقعك الإلكتروني" maxlength="60"></label>
+        <div class="section-head">
+          <span class="step-badge coral">2</span>
+          <div>
+            <h2>معلومات الوالدين</h2>
+            <p>رقما اتصال أساسيان يظهران كأزرار مباشرة.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="previews">
-        <article class="keychain-card card dark">
-          <div class="preview-head"><div><small>معاينة 1</small><h2>شكل الميدالية التقريبي</h2></div><b>NFC</b></div>
-          <div class="keychain-stage">
-            <div class="shadow"></div>
-            <div id="keychainEmpty" class="empty-preview">ارفع اللوغو لتظهر الميدالية هنا</div>
-            <div id="keychainWrap" class="keychain-wrap hidden">
-              <div class="ring"></div><div class="neck"></div>
-              <canvas id="keychainCanvas" width="720" height="520"></canvas>
-            </div>
+        <div class="parent-box">
+          <div class="parent-title"><span>الأب / ولي الأمر الأول</span><b>أساسي</b></div>
+          <div class="field-grid two">
+            <label class="field"><span>الاسم *</span><input id="parent1Name" maxlength="60" required placeholder="اسم الأب"></label>
+            <label class="field"><span>رقم الهاتف *</span><input id="parent1Phone" inputmode="tel" maxlength="24" required placeholder="+90 5xx xxx xx xx"></label>
           </div>
-          <p class="note">هذه معاينة تقريبية لميداليتك ✨ قد تختلف بعض التفاصيل البسيطة عند التنفيذ، وسنقوم بتحسين التصميم بما يناسب لوغوك للحصول على أفضل نتيجة ممكنة.</p>
-          <button id="alternateDesignBtn" class="alt-design-btn hidden" type="button">تصميم مختلف</button>
-        </article>
+        </div>
 
-        <article class="profile-card card">
-          <div class="preview-head light"><div><small>معاينة 2</small><h2>صفحة الـ NFC الخاصة بشركتك</h2></div></div>
-          <div class="profile-preview">
-            <div class="profile-hero-preview">
-              <div class="profile-stars"></div>
-              <div class="profile-wave profile-wave-1"></div>
-              <div class="profile-wave profile-wave-2"></div>
-              <div class="mini-lang"><span>Türkçe</span><b>العربية</b></div>
-              <div class="profile-avatar-wrap">
-                <div class="profile-logo"><img id="profileLogo" alt="لوغو الشركة"><span id="profilePlaceholder">LOGO</span></div>
-              </div>
-              <h3 id="companyPreview">اسم شركتك</h3>
-              <div class="mini-subtitle">◆ &nbsp; Digital Profile &nbsp; ◆</div>
-              <p class="mini-bio">صفحتك الذكية الخاصة بشركتك</p>
-              <div class="mini-gold-line"></div>
-            </div>
-
-            <div class="profile-links-preview">
-              <div class="profile-link contact-preview">
-                <span class="profile-arrow">‹</span>
-                <span class="profile-link-text"><b>إضافة لجهات الاتصال</b><small>احفظ بيانات شركتك بسهولة</small></span>
-                <span class="profile-icon">👤</span>
-              </div>
-              <div class="profile-link whatsapp-preview">
-                <span class="profile-arrow">‹</span>
-                <span class="profile-link-text"><b>واتساب</b><small id="waPreview">WhatsApp</small></span>
-                <span class="profile-icon">◔</span>
-              </div>
-              <div class="profile-link instagram-preview">
-                <span class="profile-arrow">‹</span>
-                <span class="profile-link-text"><b>Instagram</b><small id="igPreview">Instagram</small></span>
-                <span class="profile-icon">◎</span>
-              </div>
-              <div class="profile-link website-preview">
-                <span class="profile-arrow">‹</span>
-                <span class="profile-link-text"><b>الموقع الإلكتروني</b><small id="webPreview">موقعك الإلكتروني</small></span>
-                <span class="profile-icon">🌐</span>
-              </div>
-            </div>
+        <div class="parent-box">
+          <div class="parent-title"><span>الأم / ولي الأمر الثاني</span><b>أساسي</b></div>
+          <div class="field-grid two">
+            <label class="field"><span>الاسم *</span><input id="parent2Name" maxlength="60" required placeholder="اسم الأم"></label>
+            <label class="field"><span>رقم الهاتف *</span><input id="parent2Phone" inputmode="tel" maxlength="24" required placeholder="+90 5xx xxx xx xx"></label>
           </div>
+        </div>
+
+        <details class="extra-contact">
+          <summary>إضافة شخص طوارئ ثالث <span>اختياري</span></summary>
+          <div class="field-grid two">
+            <label class="field"><span>الاسم</span><input id="emergencyName" maxlength="60" placeholder="الجد، العم، قريب..."></label>
+            <label class="field"><span>رقم الهاتف</span><input id="emergencyPhone" inputmode="tel" maxlength="24" placeholder="+90 5xx xxx xx xx"></label>
+          </div>
+        </details>
+
+        <label class="consent-row">
+          <input id="consent" type="checkbox" required>
+          <span>أؤكد أنني مخوّل بإدخال هذه المعلومات وأفهم أن من يملك رابط الميدالية يمكنه مشاهدتها.</span>
+        </label>
+
+        <button id="createBtn" class="primary-btn" type="submit">
+          <span id="createBtnText">إنشاء الرابط</span>
+          <span class="btn-icon">←</span>
+        </button>
+        <p id="formMessage" class="form-message" aria-live="polite"></p>
+      </form>
+
+      <aside class="preview-wrap">
+        <div class="preview-label">
+          <div><span>معاينة مباشرة</span><strong>هكذا ستظهر البطاقة عند فتح الرابط</strong></div>
+          <span class="live-dot">LIVE</span>
+        </div>
+        <article id="previewCard" class="emergency-card">
+          <div class="card-top">
+            <div class="nfc-chip"><span class="nfc-waves">)))</span><b>NFC</b></div>
+            <span class="safe-pill">بطاقة طوارئ</span>
+          </div>
+          <div class="avatar-ring">
+            <div id="previewAvatar" class="avatar-placeholder">👦🏻</div>
+          </div>
+          <h2 id="previewName">اسم الطفل</h2>
+          <p class="found-text">إذا وجدت هذا الطفل، يرجى التواصل مع عائلته فوراً.</p>
+
+          <div class="quick-info">
+            <div><span>فصيلة الدم</span><b id="previewBlood">—</b></div>
+            <div><span>تاريخ الميلاد</span><b id="previewBirth">—</b></div>
+            <div><span>اللغة</span><b id="previewLanguage">—</b></div>
+          </div>
+
+          <div class="contact-stack">
+            <a id="previewParent1Call" class="contact-btn primary-contact" href="#" tabindex="-1">
+              <span class="contact-icon">☎</span><span><small>اتصل بولي الأمر الأول</small><b id="previewParent1Name">اسم الأب</b></span>
+            </a>
+            <a id="previewParent2Call" class="contact-btn secondary-contact" href="#" tabindex="-1">
+              <span class="contact-icon">☎</span><span><small>اتصل بولي الأمر الثاني</small><b id="previewParent2Name">اسم الأم</b></span>
+            </a>
+          </div>
+
+          <div id="previewMedicalBlock" class="info-panel">
+            <div><span>⚕</span><strong>معلومات مهمة</strong></div>
+            <p id="previewMedical">لا توجد معلومات إضافية.</p>
+          </div>
+
+          <div id="previewAreaRow" class="area-row"><span>⌖</span><b id="previewArea">المدينة / المنطقة</b></div>
+          <footer>Emergency Child ID • NFC</footer>
         </article>
-      </div>
+      </aside>
     </section>
   </main>
-  <script src="app.js?v=7"></script>
+
+  <main id="publicView" class="public-shell hidden">
+    <div id="publicLoading" class="state-card"><div class="spinner"></div><h2>جاري فتح بطاقة الطوارئ...</h2></div>
+    <div id="publicError" class="state-card hidden"><div class="state-icon">!</div><h2>تعذر فتح البطاقة</h2><p id="publicErrorText">تحقق من الرابط وحاول مرة أخرى.</p></div>
+    <article id="publicCard" class="emergency-card public-card hidden">
+      <div class="card-top">
+        <div class="nfc-chip"><span class="nfc-waves">)))</span><b>NFC</b></div>
+        <span class="safe-pill">بطاقة طوارئ</span>
+      </div>
+      <div class="avatar-ring"><div id="publicAvatar" class="avatar-placeholder">👦🏻</div></div>
+      <h1 id="publicName">—</h1>
+      <p class="found-text">إذا وجدت هذا الطفل، يرجى التواصل مع عائلته فوراً.</p>
+      <div id="publicQuickInfo" class="quick-info"></div>
+      <div id="publicContacts" class="contact-stack"></div>
+      <div id="publicMedicalBlock" class="info-panel hidden"><div><span>⚕</span><strong>معلومات مهمة</strong></div><p id="publicMedical"></p></div>
+      <div id="publicAreaRow" class="area-row hidden"><span>⌖</span><b id="publicArea"></b></div>
+      <footer>Emergency Child ID • NFC</footer>
+    </article>
+  </main>
+
+  <div id="resultModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div class="modal-card">
+      <div class="success-icon">✓</div>
+      <h2 id="resultTitle">الرابط جاهز</h2>
+      <p>انسخ هذا الرابط وبرمجه على شريحة NFC. بعد النسخ سيتم مسح البيانات من هذه الصفحة.</p>
+      <div class="link-box"><input id="resultLink" readonly><button id="copyLinkBtn" type="button">نسخ الرابط</button></div>
+      <button id="openLinkBtn" class="ghost-btn" type="button">فتح الرابط للتأكد</button>
+      <small>لا يوجد رابط تعديل. إذا كانت هناك معلومة خاطئة، أنشئ بطاقة جديدة ورابطاً جديداً.</small>
+    </div>
+  </div>
+
+  <script src="config.js?v=1"></script>
+  <script src="app.js?v=1"></script>
 </body>
 </html>
