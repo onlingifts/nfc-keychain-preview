@@ -1,2 +1,1 @@
-// سيتم وضع رابط خدمة الحفظ هنا بعد إنشاء قاعدة البيانات المستقلة.
-window.CHILD_CARD_API = "";
+window.CHILD_CARD_API = "https://dicjbjseentebzsxsmhf.supabase.co/functions/v1/child-card";
