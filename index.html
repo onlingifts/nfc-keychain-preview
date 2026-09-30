@@ -1,35 +1,36 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="tr" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#17324d" />
   <meta name="robots" content="noindex,nofollow,noarchive" />
-  <title>بطاقة طوارئ الطفل الذكية</title>
+  <title data-i18n="pageTitle">Akıllı Çocuk Acil Durum Kartı</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1" />
+  <link rel="stylesheet" href="styles.css?v=2" />
 </head>
 <body>
   <main id="builderView" class="app-shell">
     <header class="hero">
+      <button id="langToggleBuilder" class="lang-toggle hero-lang-toggle" type="button" aria-label="العربية">عربي</button>
       <div class="hero-orb orb-1"></div>
       <div class="hero-orb orb-2"></div>
       <div class="hero-content">
         <div class="brand-row">
           <div class="brand-mark">NFC</div>
           <div>
-            <strong>بطاقة طوارئ الطفل الذكية</strong>
-            <span>أنشئ رابط معلومات الطفل خلال دقيقة</span>
+            <strong data-i18n="brandTitle">Akıllı Çocuk Acil Durum Kartı</strong>
+            <span data-i18n="brandSubtitle">Çocuğun bilgileri için bir dakikada bağlantı oluşturun</span>
           </div>
         </div>
-        <h1>معلومات الطفل والأهل في رابط واحد جاهز للميدالية</h1>
-        <p>اكتب المعلومات، شاهد المعاينة، ثم اضغط «إنشاء الرابط». بعد نسخ الرابط يمكنك برمجته مباشرة على شريحة NFC.</p>
+        <h1 data-i18n="heroTitle">Çocuk ve ebeveyn bilgileri, NFC etiketi için tek bağlantıda</h1>
+        <p data-i18n="heroText">Bilgileri girin, önizlemeyi kontrol edin ve “Bağlantı oluştur” düğmesine basın. Kopyaladığınız bağlantıyı doğrudan NFC etiketine yazabilirsiniz.</p>
         <div class="trust-row">
-          <span>بدون حساب</span>
-          <span>بدون رابط تعديل</span>
-          <span>الرابط للعرض فقط</span>
+          <span data-i18n="trust1">Hesap gerektirmez</span>
+          <span data-i18n="trust2">Düzenleme bağlantısı yok</span>
+          <span data-i18n="trust3">Bağlantı yalnızca görüntüleme içindir</span>
         </div>
       </div>
     </header>
@@ -39,8 +40,8 @@
         <div class="section-head">
           <span class="step-badge">1</span>
           <div>
-            <h2>معلومات الطفل</h2>
-            <p>ضع فقط المعلومات التي تريد أن تظهر عند لمس الميدالية.</p>
+            <h2 data-i18n="childInfoTitle">Çocuk bilgileri</h2>
+            <p data-i18n="childInfoDesc">Yalnızca NFC etiketi okutulduğunda görünmesini istediğiniz bilgileri ekleyin.</p>
           </div>
         </div>
 
@@ -48,130 +49,130 @@
           <input id="photoInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
           <div id="photoThumb" class="photo-thumb"><span>＋</span></div>
           <div class="photo-copy">
-            <strong>صورة الطفل <small>اختياري</small></strong>
-            <span>اضغط لاختيار صورة واضحة</span>
+            <strong><span data-i18n="childPhoto">Çocuk fotoğrafı</span> <small data-i18n="optional">İsteğe bağlı</small></strong>
+            <span data-i18n="photoHint">Net bir fotoğraf seçmek için dokunun</span>
           </div>
         </label>
 
         <div class="field-grid two">
           <label class="field">
-            <span>اسم الطفل *</span>
-            <input id="childName" maxlength="60" required placeholder="مثال: محمد أحمد">
+            <span data-i18n="childNameLabel">Çocuğun adı *</span>
+            <input id="childName" maxlength="60" required placeholder="Örnek: Emir Yılmaz" data-i18n-placeholder="childNamePlaceholder">
           </label>
           <label class="field">
-            <span>تاريخ الميلاد <small>اختياري</small></span>
+            <span><span data-i18n="birthDateLabel">Doğum tarihi</span> <small data-i18n="optional">İsteğe bağlı</small></span>
             <input id="birthDate" type="date">
           </label>
           <label class="field">
-            <span>فصيلة الدم <small>اختياري</small></span>
+            <span><span data-i18n="bloodTypeLabel">Kan grubu</span> <small data-i18n="optional">İsteğe bağlı</small></span>
             <select id="bloodType">
-              <option value="">غير محدد</option>
+              <option value="" data-i18n="notSpecified">Belirtilmedi</option>
               <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
               <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
             </select>
           </label>
           <label class="field">
-            <span>اللغة التي يفهمها الطفل <small>اختياري</small></span>
-            <input id="childLanguage" maxlength="50" placeholder="العربية، التركية...">
+            <span><span data-i18n="childLanguageLabel">Çocuğun anladığı dil</span> <small data-i18n="optional">İsteğe bağlı</small></span>
+            <input id="childLanguage" maxlength="50" placeholder="Türkçe, Arapça..." data-i18n-placeholder="childLanguagePlaceholder">
           </label>
         </div>
 
         <label class="field">
-          <span>الحساسية أو الأدوية المهمة <small>اختياري</small></span>
-          <textarea id="allergies" maxlength="240" rows="3" placeholder="مثال: حساسية من البنسلين"></textarea>
+          <span><span data-i18n="allergiesLabel">Alerji veya önemli ilaçlar</span> <small data-i18n="optional">İsteğe bağlı</small></span>
+          <textarea id="allergies" maxlength="240" rows="3" placeholder="Örnek: Penisilin alerjisi" data-i18n-placeholder="allergiesPlaceholder"></textarea>
         </label>
         <label class="field">
-          <span>ملاحظة طبية أو مهمة <small>اختياري</small></span>
-          <textarea id="medicalNote" maxlength="300" rows="3" placeholder="أي معلومة مهمة لمن يجد الطفل"></textarea>
+          <span><span data-i18n="medicalNoteLabel">Tıbbi veya önemli not</span> <small data-i18n="optional">İsteğe bağlı</small></span>
+          <textarea id="medicalNote" maxlength="300" rows="3" placeholder="Çocuğu bulan kişinin bilmesi gereken önemli bilgi" data-i18n-placeholder="medicalNotePlaceholder"></textarea>
         </label>
         <label class="field">
-          <span>المدينة / المنطقة <small>اختياري</small></span>
-          <input id="area" maxlength="80" placeholder="مثال: إسطنبول - إسنيورت">
-          <small class="privacy-hint">يفضل عدم كتابة عنوان المنزل الكامل.</small>
+          <span><span data-i18n="areaLabel">Şehir / Bölge</span> <small data-i18n="optional">İsteğe bağlı</small></span>
+          <input id="area" maxlength="80" placeholder="Örnek: İstanbul - Esenyurt" data-i18n-placeholder="areaPlaceholder">
+          <small class="privacy-hint" data-i18n="privacyHint">Tam ev adresinin yazılmaması önerilir.</small>
         </label>
 
         <div class="divider"></div>
         <div class="section-head">
           <span class="step-badge coral">2</span>
           <div>
-            <h2>معلومات الوالدين</h2>
-            <p>رقما اتصال أساسيان يظهران كأزرار مباشرة.</p>
+            <h2 data-i18n="parentsTitle">Ebeveyn bilgileri</h2>
+            <p data-i18n="parentsDesc">İki ana telefon numarası doğrudan arama düğmesi olarak gösterilir.</p>
           </div>
         </div>
 
         <div class="parent-box">
-          <div class="parent-title"><span>الأب / ولي الأمر الأول</span><b>أساسي</b></div>
+          <div class="parent-title"><span data-i18n="parent1Title">Baba / Birinci veli</span><b data-i18n="requiredTag">Zorunlu</b></div>
           <div class="field-grid two">
-            <label class="field"><span>الاسم *</span><input id="parent1Name" maxlength="60" required placeholder="اسم الأب"></label>
-            <label class="field"><span>رقم الهاتف *</span><input id="parent1Phone" inputmode="tel" maxlength="24" required placeholder="+90 5xx xxx xx xx"></label>
+            <label class="field"><span data-i18n="nameLabel">Ad *</span><input id="parent1Name" maxlength="60" required placeholder="Babanın adı" data-i18n-placeholder="parent1Placeholder"></label>
+            <label class="field"><span data-i18n="phoneLabel">Telefon numarası *</span><input id="parent1Phone" inputmode="tel" maxlength="24" required placeholder="+90 5xx xxx xx xx"></label>
           </div>
         </div>
 
         <div class="parent-box">
-          <div class="parent-title"><span>الأم / ولي الأمر الثاني</span><b>أساسي</b></div>
+          <div class="parent-title"><span data-i18n="parent2Title">Anne / İkinci veli</span><b data-i18n="requiredTag">Zorunlu</b></div>
           <div class="field-grid two">
-            <label class="field"><span>الاسم *</span><input id="parent2Name" maxlength="60" required placeholder="اسم الأم"></label>
-            <label class="field"><span>رقم الهاتف *</span><input id="parent2Phone" inputmode="tel" maxlength="24" required placeholder="+90 5xx xxx xx xx"></label>
+            <label class="field"><span data-i18n="nameLabel">Ad *</span><input id="parent2Name" maxlength="60" required placeholder="Annenin adı" data-i18n-placeholder="parent2Placeholder"></label>
+            <label class="field"><span data-i18n="phoneLabel">Telefon numarası *</span><input id="parent2Phone" inputmode="tel" maxlength="24" required placeholder="+90 5xx xxx xx xx"></label>
           </div>
         </div>
 
         <details class="extra-contact">
-          <summary>إضافة شخص طوارئ ثالث <span>اختياري</span></summary>
+          <summary><span data-i18n="thirdContactTitle">Üçüncü acil durum kişisi ekle</span> <span data-i18n="optional">İsteğe bağlı</span></summary>
           <div class="field-grid two">
-            <label class="field"><span>الاسم</span><input id="emergencyName" maxlength="60" placeholder="الجد، العم، قريب..."></label>
-            <label class="field"><span>رقم الهاتف</span><input id="emergencyPhone" inputmode="tel" maxlength="24" placeholder="+90 5xx xxx xx xx"></label>
+            <label class="field"><span data-i18n="nameLabelPlain">Ad</span><input id="emergencyName" maxlength="60" placeholder="Dede, amca, akraba..." data-i18n-placeholder="thirdContactPlaceholder"></label>
+            <label class="field"><span data-i18n="phoneLabelPlain">Telefon numarası</span><input id="emergencyPhone" inputmode="tel" maxlength="24" placeholder="+90 5xx xxx xx xx"></label>
           </div>
         </details>
 
         <label class="consent-row">
           <input id="consent" type="checkbox" required>
-          <span>أؤكد أنني مخوّل بإدخال هذه المعلومات وأفهم أن من يملك رابط الميدالية يمكنه مشاهدتها.</span>
+          <span data-i18n="consentText">Bu bilgileri girmeye yetkili olduğumu ve bağlantıya sahip olan herkesin bu bilgileri görebileceğini kabul ediyorum.</span>
         </label>
 
         <button id="createBtn" class="primary-btn" type="submit">
-          <span id="createBtnText">إنشاء الرابط</span>
-          <span class="btn-icon">←</span>
+          <span id="createBtnText" data-i18n="createLink">Bağlantı oluştur</span>
+          <span class="btn-icon">→</span>
         </button>
         <p id="formMessage" class="form-message" aria-live="polite"></p>
       </form>
 
       <aside class="preview-wrap">
         <div class="preview-label">
-          <div><span>معاينة مباشرة</span><strong>هكذا ستظهر البطاقة عند فتح الرابط</strong></div>
+          <div><span data-i18n="livePreview">Canlı önizleme</span><strong data-i18n="previewDesc">Bağlantı açıldığında kart böyle görünecek</strong></div>
           <span class="live-dot">LIVE</span>
         </div>
         <article id="previewCard" class="emergency-card">
           <div class="card-top">
             <div class="nfc-chip"><span class="nfc-waves">)))</span><b>NFC</b></div>
-            <span class="safe-pill">بطاقة طوارئ</span>
+            <span class="safe-pill" data-i18n="emergencyCard">Acil Durum Kartı</span>
           </div>
           <div class="avatar-ring">
             <div id="previewAvatar" class="avatar-placeholder">👦🏻</div>
           </div>
-          <h2 id="previewName">اسم الطفل</h2>
-          <p class="found-text">إذا وجدت هذا الطفل، يرجى التواصل مع عائلته فوراً.</p>
+          <h2 id="previewName">Çocuğun adı</h2>
+          <p class="found-text" data-i18n="foundText">Bu çocuğu bulduysanız lütfen ailesiyle hemen iletişime geçin.</p>
 
           <div class="quick-info">
-            <div><span>فصيلة الدم</span><b id="previewBlood">—</b></div>
-            <div><span>تاريخ الميلاد</span><b id="previewBirth">—</b></div>
-            <div><span>اللغة</span><b id="previewLanguage">—</b></div>
+            <div><span data-i18n="bloodTypeLabel">Kan grubu</span><b id="previewBlood">—</b></div>
+            <div><span data-i18n="birthDateLabel">Doğum tarihi</span><b id="previewBirth">—</b></div>
+            <div><span data-i18n="languageShort">Dil</span><b id="previewLanguage">—</b></div>
           </div>
 
           <div class="contact-stack">
             <a id="previewParent1Call" class="contact-btn primary-contact" href="#" tabindex="-1">
-              <span class="contact-icon">☎</span><span><small>اتصل بولي الأمر الأول</small><b id="previewParent1Name">اسم الأب</b></span>
+              <span class="contact-icon">☎</span><span><small data-i18n="callParent1">Birinci veliyi ara</small><b id="previewParent1Name">Babanın adı</b></span>
             </a>
             <a id="previewParent2Call" class="contact-btn secondary-contact" href="#" tabindex="-1">
-              <span class="contact-icon">☎</span><span><small>اتصل بولي الأمر الثاني</small><b id="previewParent2Name">اسم الأم</b></span>
+              <span class="contact-icon">☎</span><span><small data-i18n="callParent2">İkinci veliyi ara</small><b id="previewParent2Name">Annenin adı</b></span>
             </a>
           </div>
 
           <div id="previewMedicalBlock" class="info-panel">
-            <div><span>⚕</span><strong>معلومات مهمة</strong></div>
-            <p id="previewMedical">لا توجد معلومات إضافية.</p>
+            <div><span>⚕</span><strong data-i18n="importantInfo">Önemli bilgiler</strong></div>
+            <p id="previewMedical">Ek bilgi yok.</p>
           </div>
 
-          <div id="previewAreaRow" class="area-row"><span>⌖</span><b id="previewArea">المدينة / المنطقة</b></div>
+          <div id="previewAreaRow" class="area-row"><span>⌖</span><b id="previewArea">Şehir / Bölge</b></div>
           <footer>Emergency Child ID • NFC</footer>
         </article>
       </aside>
@@ -179,19 +180,22 @@
   </main>
 
   <main id="publicView" class="public-shell hidden">
-    <div id="publicLoading" class="state-card"><div class="spinner"></div><h2>جاري فتح بطاقة الطوارئ...</h2></div>
-    <div id="publicError" class="state-card hidden"><div class="state-icon">!</div><h2>تعذر فتح البطاقة</h2><p id="publicErrorText">تحقق من الرابط وحاول مرة أخرى.</p></div>
+    <div class="public-toolbar">
+      <button id="langTogglePublic" class="lang-toggle" type="button" aria-label="العربية">عربي</button>
+    </div>
+    <div id="publicLoading" class="state-card"><div class="spinner"></div><h2 data-i18n="loadingCard">Acil durum kartı açılıyor...</h2></div>
+    <div id="publicError" class="state-card hidden"><div class="state-icon">!</div><h2 data-i18n="cannotOpen">Kart açılamadı</h2><p id="publicErrorText" data-i18n="checkLink">Bağlantıyı kontrol edip tekrar deneyin.</p></div>
     <article id="publicCard" class="emergency-card public-card hidden">
       <div class="card-top">
         <div class="nfc-chip"><span class="nfc-waves">)))</span><b>NFC</b></div>
-        <span class="safe-pill">بطاقة طوارئ</span>
+        <span class="safe-pill" data-i18n="emergencyCard">Acil Durum Kartı</span>
       </div>
       <div class="avatar-ring"><div id="publicAvatar" class="avatar-placeholder">👦🏻</div></div>
       <h1 id="publicName">—</h1>
-      <p class="found-text">إذا وجدت هذا الطفل، يرجى التواصل مع عائلته فوراً.</p>
+      <p class="found-text" data-i18n="foundText">Bu çocuğu bulduysanız lütfen ailesiyle hemen iletişime geçin.</p>
       <div id="publicQuickInfo" class="quick-info"></div>
       <div id="publicContacts" class="contact-stack"></div>
-      <div id="publicMedicalBlock" class="info-panel hidden"><div><span>⚕</span><strong>معلومات مهمة</strong></div><p id="publicMedical"></p></div>
+      <div id="publicMedicalBlock" class="info-panel hidden"><div><span>⚕</span><strong data-i18n="importantInfo">Önemli bilgiler</strong></div><p id="publicMedical"></p></div>
       <div id="publicAreaRow" class="area-row hidden"><span>⌖</span><b id="publicArea"></b></div>
       <footer>Emergency Child ID • NFC</footer>
     </article>
@@ -200,15 +204,15 @@
   <div id="resultModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
     <div class="modal-card">
       <div class="success-icon">✓</div>
-      <h2 id="resultTitle">الرابط جاهز</h2>
-      <p>انسخ هذا الرابط وبرمجه على شريحة NFC. بعد النسخ سيتم مسح البيانات من هذه الصفحة.</p>
-      <div class="link-box"><input id="resultLink" readonly><button id="copyLinkBtn" type="button">نسخ الرابط</button></div>
-      <button id="openLinkBtn" class="ghost-btn" type="button">فتح الرابط للتأكد</button>
-      <small>لا يوجد رابط تعديل. إذا كانت هناك معلومة خاطئة، أنشئ بطاقة جديدة ورابطاً جديداً.</small>
+      <h2 id="resultTitle" data-i18n="linkReady">Bağlantı hazır</h2>
+      <p data-i18n="linkReadyDesc">Bu bağlantıyı kopyalayın ve NFC etiketine yazın. Kopyalama işleminden sonra formdaki bilgiler temizlenecektir.</p>
+      <div class="link-box"><input id="resultLink" readonly><button id="copyLinkBtn" type="button" data-i18n="copyLink">Bağlantıyı kopyala</button></div>
+      <button id="openLinkBtn" class="ghost-btn" type="button" data-i18n="openLink">Bağlantıyı kontrol et</button>
+      <small data-i18n="noEditNote">Düzenleme bağlantısı yoktur. Yanlış bilgi varsa yeni bir kart ve yeni bir bağlantı oluşturun.</small>
     </div>
   </div>
 
   <script src="config.js?v=1"></script>
-  <script src="app.js?v=1"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
