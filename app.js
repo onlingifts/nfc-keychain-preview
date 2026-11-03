@@ -1,4 +1,4 @@
-const API_ENDPOINT=(window.CHILD_CARD_API||"").trim();
+const API_ENDPOINT="https://ktlqactpljbnuwqukgiy.supabase.co/functions/v1/child-card-v2";
 
 const $=id=>document.getElementById(id);
 const builderView=$("builderView"), publicView=$("publicView");
@@ -227,7 +227,7 @@ form.addEventListener("submit",async e=>{
     resultLink.value=url.toString();
     resultModal.classList.remove("hidden");
   }catch(err){
-    formMessage.textContent=err.message||t("genericError");
+    formMessage.textContent=err instanceof TypeError ? (currentLang==="ar"?"تعذر الاتصال بخدمة الحفظ. تحقق من الشبكة ثم أعد المحاولة.":"Kayıt servisine bağlanılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.") : (err.message||t("genericError"));
   }finally{
     createBtn.disabled=false;createBtnText.textContent=t("createLink");
   }
